@@ -13,8 +13,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production',
+    secure: process.env.NODE_ENV === 'production', // Ensures cookies are only sent via HTTPS on Render
     httpOnly: true,
+    sameSite: 'lax', // Crucial for cross-site cookies to work as expected!
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   },
 }));
@@ -73,11 +74,11 @@ app.use((req, res, next) => {
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
-const port = parseInt(process.env.PORT || '3000', 10);
-server.listen({
-  port,
-  host: "0.0.0.0"        // <-- must be 0.0.0.0 for Render!
-}, () => {
-  log(`serving on port ${port}`);
-});
+  const port = parseInt(process.env.PORT || '3000', 10);
+  server.listen({
+    port,
+    host: "0.0.0.0"        // <-- must be 0.0.0.0 for Render!
+  }, () => {
+    log(`serving on port ${port}`);
+  });
 })();

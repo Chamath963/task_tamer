@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const { login, isLoading } = useAuth();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export default function Login() {
         title: "Welcome back!",
         description: "You have successfully logged in.",
       });
+      setTimeout(() => setLocation("/dashboard"), 800);
     } catch (error) {
       toast({
         title: "Login failed",

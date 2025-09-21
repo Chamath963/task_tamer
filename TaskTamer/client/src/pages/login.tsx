@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,9 +10,16 @@ import { useToast } from '@/hooks/use-toast';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, user } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+
+  // Redirect to dashboard if already authenticated
+  useEffect(() => {
+    if (user) {
+      setLocation("/");
+    }
+  }, [user, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -23,9 +23,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production', // Ensures cookies are only sent via HTTPS on Render
+    secure: true, // Always use secure cookies in production
     httpOnly: true,
-    sameSite: 'lax', // Crucial for cross-site cookies to work as expected!
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use SameSite=None for cross-site requests in production
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   },
 }));

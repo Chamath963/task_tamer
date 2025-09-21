@@ -23,7 +23,7 @@ export default function Login() {
         title: "Welcome back!",
         description: "You have successfully logged in.",
       });
-      setTimeout(() => setLocation("/dashboard"), 800);
+      setTimeout(() => setLocation("/"), 800);
     } catch (error) {
       toast({
         title: "Login failed",

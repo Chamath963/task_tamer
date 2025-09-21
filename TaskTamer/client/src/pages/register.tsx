@@ -34,7 +34,7 @@ export default function Register() {
         title: "Account created!",
         description: "Welcome to Momentum. Start tracking your freelance journey.",
       });
-      setTimeout(() => setLocation("/dashboard"), 800);
+      setTimeout(() => setLocation("/"), 800);
     } catch (error) {
       toast({
         title: "Registration failed",

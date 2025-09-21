@@ -1,9 +1,19 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
+import cors from "cors";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+app.use(
+  cors({
+    origin: [
+      "https://task-tamer.onrender.com",
+      "http://localhost:5173"
+    ], // <-- add your deployed and local origins here
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
